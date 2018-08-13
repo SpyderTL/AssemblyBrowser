@@ -18,6 +18,7 @@ namespace AssemblyBrowser
 				using (var reader = new System.IO.BinaryReader(stream))
 				{
 					stream.Position = Position;
+					var position = stream.Position;
 
 					var characters = new List<char>();
 
@@ -29,10 +30,12 @@ namespace AssemblyBrowser
 						{
 							if (characters.Count != 0)
 							{
-								yield return new string(characters.ToArray());
+								yield return new string(characters.ToArray()) + ": " + (position - Position);
 
 								characters.Clear();
 							}
+
+							position = stream.Position;
 						}
 						else
 							characters.Add(character);

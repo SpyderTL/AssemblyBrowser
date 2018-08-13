@@ -31,6 +31,7 @@
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.treeView = new System.Windows.Forms.TreeView();
 			this.propertyGrid = new System.Windows.Forms.PropertyGrid();
+			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -67,10 +68,15 @@
 			// propertyGrid
 			// 
 			this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.propertyGrid.LineColor = System.Drawing.SystemColors.ControlDark;
 			this.propertyGrid.Location = new System.Drawing.Point(0, 0);
 			this.propertyGrid.Name = "propertyGrid";
 			this.propertyGrid.Size = new System.Drawing.Size(668, 729);
 			this.propertyGrid.TabIndex = 0;
+			// 
+			// openFileDialog
+			// 
+			this.openFileDialog.Filter = ".NET Assemblies|*.dll;*.exe";
 			// 
 			// BrowserWindow
 			// 
@@ -93,6 +99,7 @@
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.TreeView treeView;
 		private System.Windows.Forms.PropertyGrid propertyGrid;
+		private System.Windows.Forms.OpenFileDialog openFileDialog;
 	}
 }
 

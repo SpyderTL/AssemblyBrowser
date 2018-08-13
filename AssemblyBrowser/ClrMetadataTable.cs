@@ -46,13 +46,26 @@ namespace AssemblyBrowser
 					//01 - TypeRef
 					for (var table = 0; table < rowCounts[1]; table++)
 					{
-						yield return "TypeRef";
+						var resolutionScopeTableIndex = reader.ReadUInt16();
+						//var resolutionScopeIndex = reader.ReadUInt16();
+						var typeName = reader.ReadUInt16();
+						var typeNamespace = reader.ReadUInt16();
+
+						yield return "TypeRef: " + typeNamespace + "." + typeName;
 					}
 
 					//02 - TypeDef
 					for (var table = 0; table < rowCounts[2]; table++)
 					{
-						yield return "TypeDef";
+						var typeDefFlags = reader.ReadUInt32();
+						var typeName = reader.ReadUInt16();
+						var typeNamespace = reader.ReadUInt16();
+						//var extendsTable = reader.ReadUInt16();
+						var extendsTableIndex = reader.ReadUInt16();
+						var fieldListIndex = reader.ReadUInt16();
+						var methodListIndex = reader.ReadUInt16();
+
+						yield return "TypeDef: " + typeNamespace + "." + typeName;
 					}
 
 					//04 - Field
@@ -64,13 +77,38 @@ namespace AssemblyBrowser
 					//06 - MethodDef
 					for (var table = 0; table < rowCounts[6]; table++)
 					{
-						yield return "MethodDef";
+						var address = reader.ReadUInt32();
+						var implementationAttributes = reader.ReadUInt16();
+						var methodAttributes = reader.ReadUInt16();
+						var name = reader.ReadUInt16();
+						var signature = reader.ReadUInt16();
+						var parameterListIndex = reader.ReadUInt16();
+
+						//yield return new MethodDef { Address = address, Name = name, Path = Path, Position = 
+						yield return "MethodDef: " + name;
+
+						// address points to method header (1-byte or 12-byte), followed by method body.
+
+						// tiny
+						//		Flags		2 bits
+						//		Size			6 bits
+
+						// fat
+						//		Flags						12 bits
+						//		HeaderSize				4 bits
+						//		MaxStack					16 bits
+						//		CodeSize					32 bits
+						//		LocalVariableToken	32 bits
 					}
 
 					//08 - Param
 					for (var table = 0; table < rowCounts[8]; table++)
 					{
-						yield return "Param";
+						var parameterAttributes = reader.ReadUInt16();
+						var sequence = reader.ReadUInt16();
+						var name = reader.ReadUInt16();
+
+						yield return "Param: " + name;
 					}
 
 					//09 - InterfaceImpl
@@ -82,7 +120,11 @@ namespace AssemblyBrowser
 					//10 - MemberRef
 					for (var table = 0; table < rowCounts[10]; table++)
 					{
-						yield return "MemberRef";
+						var classTableIndex = reader.ReadUInt16();
+						var name = reader.ReadUInt16();
+						var signature = reader.ReadUInt16();
+
+						yield return "MemberRef: " + name;
 					}
 
 					//11 - Constant
@@ -94,6 +136,10 @@ namespace AssemblyBrowser
 					//12 - CustomAttribute
 					for (var table = 0; table < rowCounts[12]; table++)
 					{
+						var parent = reader.ReadUInt16();
+						var type = reader.ReadUInt16();
+						var value = reader.ReadUInt16();
+
 						yield return "CustomAttribute";
 					}
 
@@ -190,7 +236,17 @@ namespace AssemblyBrowser
 					//32 - Assembly
 					for (var table = 0; table < rowCounts[32]; table++)
 					{
-						yield return "Assembly";
+						var assemblyID = reader.ReadUInt32();
+						var assemblyMajorVersion = reader.ReadUInt16();
+						var assemblyMinorVersion = reader.ReadUInt16();
+						var assemblyBuildNumber = reader.ReadUInt16();
+						var assemblyRevisionNumber = reader.ReadUInt16();
+						var assemblyFlags = reader.ReadUInt32();
+						var publicKey = reader.ReadUInt16();
+						var name = reader.ReadUInt16();
+						var culture = reader.ReadUInt16();
+
+						yield return "Assembly: " + name;
 					}
 
 					//33 - AssemblyProcessor
@@ -208,7 +264,17 @@ namespace AssemblyBrowser
 					//35 - AssemblyRef
 					for (var table = 0; table < rowCounts[35]; table++)
 					{
-						yield return "AssemblyRef";
+						var assemblyMajorVersion = reader.ReadUInt16();
+						var assemblyMinorVersion = reader.ReadUInt16();
+						var assemblyBuildNumber = reader.ReadUInt16();
+						var assemblyRevisionNumber = reader.ReadUInt16();
+						var assemblyFlags = reader.ReadUInt32();
+						var publicKeyOrToken = reader.ReadUInt16();
+						var name = reader.ReadUInt16();
+						var culture = reader.ReadUInt16();
+						var hashValue = reader.ReadUInt16();
+
+						yield return "AssemblyRef: " + name;
 					}
 
 					//36 - AssemblyRefProcessor

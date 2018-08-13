@@ -16,9 +16,21 @@ namespace AssemblyBrowser
 		{
 			InitializeComponent();
 
-			var node = new AssemblyFile { Path = @"C:\Users\joshu\source\repos\TestCore\TestCore\bin\Debug\netcoreapp2.1\TestCore.dll" };
+			//var node = new AssemblyFile { Path = @"C:\Users\joshu\source\repos\TestCore\TestCore\bin\Debug\netcoreapp2.1\TestCore.dll" };
 
-			treeView.Nodes.Add(TreeNode(node));
+			//treeView.Nodes.Add(TreeNode(node));
+
+			Open();
+		}
+
+		private void Open()
+		{
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				var node = new AssemblyFile { Path = openFileDialog.FileName };
+
+				treeView.Nodes.Add(TreeNode(node));
+			}
 		}
 
 		private TreeNode TreeNode(object item)
