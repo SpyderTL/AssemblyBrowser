@@ -30,7 +30,7 @@ namespace AssemblyBrowser
 						{
 							if (characters.Count != 0)
 							{
-								yield return new string(characters.ToArray()) + ": " + (position - Position);
+								yield return (position - Position).ToString() + ": " + new string(characters.ToArray());
 
 								characters.Clear();
 							}

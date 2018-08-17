@@ -8,6 +8,7 @@ namespace AssemblyBrowser
 		public uint Size { get; set; }
 		public uint Position { get; set; }
 		public string Path { get; set; }
+		public uint Address { get; set; }
 
 		public IEnumerable Items
 		{
@@ -84,8 +85,8 @@ namespace AssemblyBrowser
 						var signature = reader.ReadUInt16();
 						var parameterListIndex = reader.ReadUInt16();
 
-						//yield return new MethodDef { Address = address, Name = name, Path = Path, Position = 
-						yield return "MethodDef: " + name;
+						yield return new MethodDef { Address = address, Name = name, Path = Path, Position = address - (Address - Position) };
+						//yield return "MethodDef: " + name;
 
 						// address points to method header (1-byte or 12-byte), followed by method body.
 

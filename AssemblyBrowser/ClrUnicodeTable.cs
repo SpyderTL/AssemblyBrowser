@@ -21,6 +21,8 @@ namespace AssemblyBrowser
 
 					while (stream.Position < Position + Size)
 					{
+						var offset = stream.Position - Position;
+
 						var length = (int)reader.ReadByte();
 
 						if (length == 0)
@@ -38,7 +40,7 @@ namespace AssemblyBrowser
 
 						var extendedUnicode = reader.ReadByte();
 
-						yield return System.Text.Encoding.Unicode.GetString(data);
+						yield return offset.ToString() + ": " + System.Text.Encoding.Unicode.GetString(data);
 					}
 				}
 			}

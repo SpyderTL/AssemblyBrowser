@@ -42,7 +42,7 @@ namespace AssemblyBrowser
 						switch (name)
 						{
 							case "#~\0\0":
-								yield return new ClrMetadataTable { Offset = offset, Size = size, Position = Position + offset, Path = Path };
+								yield return new ClrMetadataTable { Offset = offset, Address = Address + offset, Size = size, Position = Position + offset, Path = Path };
 								break;
 
 							case "#Strings\0\0\0\0":

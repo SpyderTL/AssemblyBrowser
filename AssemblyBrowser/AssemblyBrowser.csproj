@@ -63,6 +63,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IProperties.cs" />
     <Compile Include="IFolder.cs" />
+    <Compile Include="MethodDef.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BrowserWindow.resx">
