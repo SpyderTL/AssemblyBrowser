@@ -25,11 +25,12 @@ namespace AssemblyBrowser
 					var metadataSize = reader.ReadUInt32();
 
 					var flags = reader.ReadUInt32();
-					var entryPointTable = reader.ReadUInt32();
-					var entryPointIndex = reader.ReadUInt32();
+					var entryPointToken = reader.ReadUInt32();
+					var entryPointTable = entryPointToken >> 24;
+					var entryPointIndex = entryPointToken & 0x00ffffff;
 
 					if (metadataSize != 0)
-						yield return new ClrMetadata { Address = metadataAddress, Size = metadataSize, Position = metadataAddress - (Address - Position), Path = Path };
+						yield return new ClrMetadata { Address = metadataAddress, Size = metadataSize, Position = metadataAddress - (Address - Position), EntryPointTable = entryPointTable, EntryPointIndex = entryPointIndex, Path = Path };
 
 					var resourceAddress = reader.ReadUInt32();
 					var resourceSize = reader.ReadUInt32();

@@ -11,6 +11,8 @@ namespace AssemblyBrowser
 		public uint Size { get; set; }
 		public uint Position { get; set; }
 		public string Path { get; set; }
+		public uint EntryPointTable { get; set; }
+		public uint EntryPointIndex { get; set; }
 
 		public IEnumerable Items
 		{
@@ -85,7 +87,7 @@ namespace AssemblyBrowser
 			}
 		}
 
-		public object Properties => new { Address, Size };
+		public object Properties => new { Address, Size, EntryPointTable, EntryPointIndex };
 
 		public override string ToString() => "CLR Metadata";
 	}

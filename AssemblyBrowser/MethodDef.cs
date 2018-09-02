@@ -9,6 +9,7 @@ namespace AssemblyBrowser
 		public ushort Name { get; set; }
 		public string Path { get; set; }
 		public uint Position { get; set; }
+		public long Index { get; set; }
 
 		public IEnumerable Items
 		{
@@ -144,7 +145,11 @@ namespace AssemblyBrowser
 					return "pop";
 
 				case 0x28:
-					return "call: " + reader.ReadUInt16();
+					var token = reader.ReadUInt32();
+					var table = token >> 24;
+					var index = token & 0x00ffffff;
+
+					return "call: " + table + "." + index;
 
 				case 0x29:
 					return "calli: " + reader.ReadUInt16();
@@ -168,10 +173,14 @@ namespace AssemblyBrowser
 					return "callvirt: " + reader.ReadUInt16();
 
 				case 0x70:
-					return "cpobj: " + reader.ReadUInt16();
+					return "cpobj: " + reader.ReadUInt32();
 
 				case 0x72:
-					return "ldstr: " + reader.ReadUInt16();
+					token = reader.ReadUInt32();
+					table = token >> 24;
+					var offset = token & 0x00ffffff;
+
+					return "ldstr: " + table + "." + offset;
 
 				case 0x8d:
 					return "newarr: " + reader.ReadUInt16();
@@ -189,6 +198,6 @@ namespace AssemblyBrowser
 
 		public object Properties => new { Address, Name };
 
-		public override string ToString() => "MethodDef:" + Name;
+		public override string ToString() => "6." + Index + ": MethodDef:" + Name;
 	}
 }
